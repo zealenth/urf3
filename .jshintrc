@@ -1,0 +1,10 @@
+{
+  "extends": "node_modules/airbnb-style/linters/jshintrc",
+  "globals": {
+    "_": true,
+    "angular": true,
+    "inject": true,
+    "alert": true,
+    "window": true
+  }
+}

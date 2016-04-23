@@ -1,0 +1,13 @@
+<head>
+    <% _.each( stylesheets, function( path ) { %>
+    <link rel="stylesheet" type="text/css" href="<%- path %>" />
+    <% } ); %>
+    <title>Urf3</title>
+</head>
+<body ng-app="urf3">
+    A Simple Angular App
+</body>
+
+<% _.each( scripts, function( script ) { %>
+<script type="text/javascript" src="<%- script %>"></script>
+<% } ); %>
