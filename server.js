@@ -7,13 +7,19 @@ var app = express();
 var http = require( 'http' ).Server( app );
 var io = require( 'socket.io' )( http );
 
-/* TODO: add db support
+
  var mongoose = require( 'mongoose' );
+
+var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/projects';
+mongoose.connect(dbURI);
+
+var db = mongoose.connection;
+
  db.on('error', console.error.bind(console, 'connection error:'));
  db.once('open', function callback () {
- console.log( 'Connected to MongoDB' );
+    console.log( 'Connected to MongoDB' );
  });
- */
+
 
 app.use( compress );
 app.use( express.static( __dirname + '/dist' ) );
