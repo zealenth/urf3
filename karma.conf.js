@@ -1,10 +1,11 @@
 module.exports = function(config) {
     config.set({
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         frameworks: ['jasmine'],
         files: [
             'dist/deps.js',
-            'app/**/*.js'
+            'dist/app.js',
+            'app/**/*.spec.js'
         ]
     });
 };
