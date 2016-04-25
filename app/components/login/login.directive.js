@@ -21,6 +21,6 @@ angular.module('urf3')
         restrict: 'E',
         controllerAs: 'ctrl',
         bindToController: true,
-        templateUrl: 'app/components/login/login.tpl.html',
+        templateUrl: 'components/login/login.tpl.html',
       };
     });

@@ -200,7 +200,8 @@ gulp.task( 'js', function() {
     var tplStream = gulp.src( globs.app.template )
         .pipe( gulpif( includeMaps, sourcemaps.init() ) )
         // TODO: Add optional html minification here?
-        .pipe( templateCache( { module: 'urf3.templates', standalone: true } ) );
+        .pipe( templateCache( { module: 'urf3.templates', standalone: true } ) )
+        .pipe( remember( 'js-tmpl') );
 
     return CombinedStream.create()
         .append( srcStream )
@@ -231,7 +232,7 @@ gulp.task( 'watch', [ 'build', 'docs' ], function() {
     gulp.start( 'test-watch' );
     //TODO: Add watch functionality for assets.
 
-    gulp.watch( [ 'index.html', 'app/**/*.tpl.html' ], [ 'html' ] );
+    gulp.watch( [ 'index.html' ], [ 'html' ] );
 
     gulp.watch( globs.app.js.concat( globs.app.template ), function() {
             runSequence( 'js', [ 'check', 'js' ] );

@@ -1,11 +1,25 @@
 class LoginCtrl {
-    constructor($http) {
-      this.$http = $http;
-    }
+  constructor($http, $state) {
+    this.$http = $http;
+    this.$state = $state;
+  }
 
-    setUser(user) {
-      this.user = user;
+  login() {
+    if (this.password && this.username) {
+      this.$http.post( '/login', {username: this.username, password: this.password})
+        .then( (resp)=> {
+        if (resp.err) {
+
+        } else {
+          this.$state.go('home');
+        }
+      });
     }
+  }
+
+  register() {
+    this.$state.go('register');
+  }
 
 }
 
