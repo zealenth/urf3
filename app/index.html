@@ -1,11 +1,15 @@
 <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <% _.each( stylesheets, function( path ) { %>
     <link rel="stylesheet" type="text/css" href="<%- path %>" />
     <% } ); %>
     <title>Urf3</title>
 </head>
 <body ng-app="urf3">
-    A Simple Angular App
+    <div class="app" layout-fill layout="column">
+        <app-header></app-header>
+        A Simple Angular App
+    </div>
 </body>
 
 <% _.each( scripts, function( script ) { %>

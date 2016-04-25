@@ -7,5 +7,3 @@ angular.module('urf3',
         'ngMaterial',
     ]
 );
-
-angular.module('urf3.templates', []);

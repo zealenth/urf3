@@ -1,0 +1,15 @@
+<md-toolbar class="app-toolbar md-padding" layout="row">
+    <md-fab-speed-dial md-open="ctrl.isOpen" md-direction="down"
+                       class="md-fling md-fab-top-right app-settings md-hover-full" ng-cloak>
+        <md-fab-trigger layout-align="center center" ng-cloak>
+            <md-button aria-label="menu" class="md-fab md-mini">
+                <md-icon class="material-icons">more_vert</md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions layout-align="center center" ng-cloak>
+            <md-button class="md-fab md-mini" ng-click="ctrl.changeState('settings');">
+                <md-icon class="material-icons">settings</md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</md-toolbar>

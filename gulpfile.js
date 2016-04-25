@@ -52,7 +52,7 @@ var globs = {
     },
     bower: {
         css: [
-            'app/bower_components/angular-material/angular-material.css'
+            'bower_components/angular-material/angular-material.css'
         ],
         js: [
             'bower_components/jquery/dist/jquery.js',
@@ -63,7 +63,8 @@ var globs = {
             'bower_components/angular-aria/angular-aria.min.js',
             'bower_components/angular-animate/angular-animate.min.js',
             'bower_components/angular-material/angular-material.js',
-            'bower_components/lodash/dist/lodash.js'
+            'bower_components/lodash/dist/lodash.js',
+            'bower_components/angular-local-storage/dist/angular-local-storage.js'
         ]
     },
     build: {
@@ -230,7 +231,7 @@ gulp.task( 'watch', [ 'build', 'docs' ], function() {
     gulp.start( 'test-watch' );
     //TODO: Add watch functionality for assets.
 
-    gulp.watch( 'index.html', [ 'html' ] );
+    gulp.watch( [ 'index.html', 'app/**/*.tpl.html' ], [ 'html' ] );
 
     gulp.watch( globs.app.js.concat( globs.app.template ), function() {
             runSequence( 'js', [ 'check', 'js' ] );

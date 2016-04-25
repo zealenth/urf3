@@ -1,0 +1,9 @@
+<md-content  layout="row" flex class="md-padding">
+    <md-input-container md-no-float class="md-block">
+        <label>Username:</label>
+        <input  style="max-width:300px" ng-model="ctrl.activeUser.userName"
+                type="text" ng-enter="ctrl.setUser()" placeholder="username"></input>
+    </md-input-container>
+
+    <a ui-sref="register">Not Registered?</a>
+</md-content>

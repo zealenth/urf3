@@ -1,5 +1,6 @@
 {
   "extends": "node_modules/airbnb-style/linters/jshintrc",
+  "strict": false,
   "globals": {
     "_": true,
     "angular": true,
