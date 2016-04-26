@@ -11,14 +11,12 @@ angular.module('urf3')
           currentUser.toParams = toParams;
           return $state.go('login');
         } else {
-          socket.emit('login', {
-            user: currentUser.user,
-            jwt: currentUser.jwt,
+          socket.emit('authenticate', {
+            token: currentUser.jwt,
           });
           socket.on('reconnect', function () {
-            socket.emit('login', {
-              user: currentUser.user,
-              jwt: currentUser.jwt,
+            socket.emit('authenticate', {
+              token: currentUser.jwt,
             });
           });
         }
@@ -27,4 +25,5 @@ angular.module('urf3')
       }
     });
   },
-]);
+  ]);
+

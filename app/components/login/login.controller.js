@@ -6,17 +6,18 @@ class LoginCtrl {
   }
 
   login() {
-    if (this.password && this.username) {
+    if (this.password && this.user) {
       this.$http.post('/login', {
-        username: this.username,
+        user: this.user,
         password: this.password,
       })
         .then((resp)=> {
           if (resp.err) {
             this.err = resp.err;
           } else {
-            //currentUser.login();
-            this.$state.go('home');
+            this.currentUser.login(this.user, resp.data.token);
+            const state = this.currentUser.toState || 'home';
+            this.$state.go(state, this.currentUser.toParams);
           }
         }
       );

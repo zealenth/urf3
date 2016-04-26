@@ -1,15 +1,14 @@
 <md-content  layout="column" flex class="md-padding">
     <md-input-container>
-        <input  style="max-width:300px" ng-model="ctrl.userName"
-                type="text" ng-enter="ctrl.setUser()" placeholder="username" />
+        <input  style="max-width:300px" ng-model="ctrl.user"
+                type="text" placeholder="username" />
     </md-input-container>
   <md-input-container>
     <input  style="max-width:300px" ng-model="ctrl.password"
-            type="password" ng-enter="ctrl.setPass()" placeholder="password" />
+            type="password" ng-enter="ctrl.login()" placeholder="password" />
   </md-input-container>
   <md-input-container>
-    <md-button id="btnLogin" class="md-raised">login</md-button>
+    <md-button id="btnLogin" ng-click="ctrl.login()" class="md-raised">login</md-button>
     <md-button id="btnRegister" class="md-raised">register</md-button>
   </md-input-container>
-
 </md-content>

@@ -40,7 +40,7 @@ var deps = require( './deps' );
 var globs = {
     app: {
         js: [
-            'app/app.js', 'app/js/**/module.js', 'app/**/*.js', '!app/**/*.spec.js', '!app/**/*.spec-helper.js'
+            'app/app.js', 'app/**/module.js', 'app/**/*.js', '!app/**/*.spec.js', '!app/**/*.spec-helper.js'
         ],
         sass: 'app/**/*.scss',
         template: [ 'app/**/*.tpl.html' ]

@@ -22,10 +22,10 @@ describe('login controller', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('login does not make a request when password/username are set', function() {
+  it('login makes a request when password/username are set', function() {
     $httpBackend.expectPOST( '/login' )
       .respond({jwt: 'a'});
-    loginCtrl.username='user';
+    loginCtrl.user='user';
     loginCtrl.password='pwd';
     loginCtrl.login();
     $httpBackend.flush();

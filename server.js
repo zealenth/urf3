@@ -30,6 +30,10 @@ app.get( '/', function( req, res ) {
     res.render( 'index.html' );
 } );
 
+var auth = require('./server/auth/auth.js');
+auth.createAuthRoutes(app, io);
+
+
 var port = process.env.PORT  || process.argv[2] || 80;
 //we're passing */model* paths through to port 1337 and serving them with node.
 http.listen( port, function() {
