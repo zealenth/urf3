@@ -6,6 +6,7 @@
     "angular": true,
     "inject": true,
     "alert": true,
-    "window": true
+    "window": true,
+    "io": true
   }
 }
