@@ -1,0 +1,41 @@
+<form name="register">
+  <md-content  layout="column" flex class="md-padding">
+    <md-input-container class="md-block">
+      <input name="user" required style="max-width:300px" ng-model="ctrl.user"
+              type="text" placeholder="username" />
+    </md-input-container>
+    <div ng-messages="register.user.$error" role="alert">
+      <div class="message-error"  md-warn ng-message="required">Username is required.</div>
+    </div>
+    <md-input-container class="md-block">
+      <input  required name="email" style="max-width:300px" ng-model="ctrl.email"
+              type="email" placeholder="email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+    </md-input-container>
+    <div  ng-messages="register.email.$error" role="alert">
+      <div  class="message-error" md-warn ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+        Your email must be between 10 and 100 characters long and look like an e-mail address.
+      </div>
+    </div>
+    <md-input-container class="md-block">
+      <input required name="pass" style="max-width:300px" ng-model="ctrl.password"
+              type="password" placeholder="password" />
+    </md-input-container>
+    <div ng-messages="register.pass.$error" role="alert">
+      <div class="message-error"  md-warn ng-message="required">Password is required.</div>
+    </div>
+    <md-input-container class="md-block">
+      <input required name="confirm" style="max-width:300px" ng-model="ctrl.confirmPassword"
+              type="confirmPassword" placeholder="confirmPassword" />
+    </md-input-container>
+    <div
+            style="height:100px;"
+            vc-recaptcha
+            key="ctrl.recaptchaKey"
+            ng-model="ctrl.gRecaptchaResponse"
+            >
+    </div>
+    <md-input-container>
+      <md-button id="btnRegister" ng-click="ctrl.register()" class="md-raised">register</md-button>
+    </md-input-container>
+  </md-content>
+</form>

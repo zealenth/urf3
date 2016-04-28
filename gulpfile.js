@@ -65,7 +65,9 @@ var globs = {
             'bower_components/angular-material/angular-material.js',
             'bower_components/lodash/dist/lodash.js',
             'bower_components/angular-local-storage/dist/angular-local-storage.js',
-            'bower_components/socket.io-client/socket.io.js'
+            'bower_components/socket.io-client/socket.io.js',
+            'bower_components/angular-messages/angular-messages.min.js',
+            'bower_components/angular-recaptcha/release/angular-recaptcha.min.js'
         ]
     },
     build: {

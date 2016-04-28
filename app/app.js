@@ -5,6 +5,8 @@ angular.module('urf3',
     'ui.router',
     'LocalStorageModule',
     'ngMaterial',
+    'ngMessages',
+    'vcRecaptcha',
   ],
   function config($httpProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
