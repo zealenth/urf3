@@ -31,7 +31,7 @@ app.get( '/', function( req, res ) {
 } );
 
 var auth = require('./server/auth/auth.js');
-auth.createAuthRoutes(app, io);
+auth.createAuthRoutes(app, io, mongoose);
 
 
 var port = process.env.PORT  || process.argv[2] || 80;

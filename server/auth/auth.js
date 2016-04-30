@@ -5,6 +5,8 @@ var _ = require('lodash');
 var expressJwt = require('express-jwt');
 var socketJwt = require('socketio-jwt');
 
+var bodyParser = require( 'body-parser' );
+
 var jwtSecret = process.env.jwtSecret || 'jwt-devel';
 
 function isValidUser(user,pass) {
@@ -33,7 +35,18 @@ function authenticate(req, res, next) {
   });
 }
 
-function createAuthRoutes(app, io) {
+function createAuthRoutes(app, io, mongoose) {
+
+
+  var userSchema = new mongoose.Schema( {
+    user: String,
+    pass: String,
+    email: String
+  } );
+
+  var UserModel = mongoose.model( 'User', userSchema );
+
+
   app.post('/login', authenticate, function(req, res) {
     var token = jwt.sign({
       user: req.user,
@@ -42,6 +55,10 @@ function createAuthRoutes(app, io) {
     res.send({
       token: token
     });
+  });
+
+  app.put('/register', function(req, res) {
+
   });
   app.use(expressJwt({secret: jwtSecret}).unless({ path: [ '/login' ]}));
 
