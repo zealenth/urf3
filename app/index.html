@@ -7,7 +7,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
 </head>
-<body ng-app="urf3">
+<body>
     <div class="app" layout-fill layout="column">
         <app-header></app-header>
         <md-content>
@@ -19,3 +19,17 @@
 <% _.each( scripts, function( script ) { %>
 <script type="text/javascript" src="<%- script %>"></script>
 <% } ); %>
+
+<script>
+    System.config({
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {
+            app: {
+                format: 'register',
+                defaultExtension: 'js'
+            }
+        }
+    });
+    System.import('boot')
+            .then(null, console.error.bind(console));
+</script>

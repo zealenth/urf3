@@ -27,6 +27,7 @@ var templateCache = require( 'gulp-angular-templatecache' );
 
 var sass = require( 'gulp-sass' );
 var uglify = require( 'gulp-uglify' );
+var ts = require('gulp-typescript');
 
 var minify = false;
 var includeMaps = true;
@@ -40,7 +41,7 @@ var deps = require( './deps' );
 var globs = {
     app: {
         js: [
-            'app/app.js', 'app/**/module.js', 'app/**/*.js', '!app/**/*.spec.js', '!app/**/*.spec-helper.js'
+            'app/app.js', 'app/**/module.js', 'app/**/*.ts', 'app/**/*.js', '!app/**/*.spec.js', '!app/**/*.spec-helper.js'
         ],
         sass: 'app/**/*.scss',
         template: [ 'app/**/*.tpl.html' ]
@@ -55,6 +56,11 @@ var globs = {
             'bower_components/angular-material/angular-material.css'
         ],
         js: [
+            'node_modules/angular2/bundles/angular2-polyfills.js',
+            'node_modules/systemjs/dist/system.src.js',
+            'node_modules/rxjs/bundles/Rx.js',
+            'node_modules/angular2/bundles/angular2.dev.js',
+            'node_modules/angular2/bundles/upgrade.js',
             'bower_components/jquery/dist/jquery.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
@@ -89,7 +95,9 @@ var globs = {
             js: 'app/**/*.spec.js'
         }
     }
-}
+};
+
+var tsProject = ts.createProject('.tsconfig.json');
 
 function miniName( filename ) {
     return minify ? path.basename( filename, path.extname( filename ) ) + '.min' +  path.extname( filename ) : filename;
@@ -192,6 +200,7 @@ gulp.task( 'js', function() {
         .pipe( cached( 'js-src' ) )
         .pipe( printFilenames() )
         .pipe( gulpif( includeMaps, sourcemaps.init() ) )
+        .pipe(ts(tsProject))
         .pipe( babel() )
         // XXX: Remove vanity spaces to avoid sourcemapping problems; header and footer plugins do not yet support
         // sourcemaps.  May still interfere with minified mappings.
@@ -201,6 +210,7 @@ gulp.task( 'js', function() {
         .pipe( remember( 'js-src' ) );
 
     var tplStream = gulp.src( globs.app.template )
+        .pipe( cached( 'js-tmpl' ) )
         .pipe( gulpif( includeMaps, sourcemaps.init() ) )
         // TODO: Add optional html minification here?
         .pipe( templateCache( { module: 'urf3.templates', standalone: true } ) )
