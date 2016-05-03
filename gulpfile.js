@@ -242,7 +242,7 @@ gulp.task( 'default', function( cb ) {
 gulp.task( 'watch', [ 'build', 'docs' ], function() {
     gulp.start( 'check' );  // Run once to kick things off, after build steps for readability
     gulp.start( 'copyAssets' );
-    gulp.start( 'test-watch' );
+    //Hogs a LOT of memory... gulp.start( 'test-watch' );
     //TODO: Add watch functionality for assets.
 
     gulp.watch( [ 'app/index.html' ], [ 'html' ] );
