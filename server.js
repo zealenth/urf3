@@ -8,7 +8,8 @@ var http = require( 'http' ).Server( app );
 var io = require( 'socket.io' )( http );
 
 
- var mongoose = require( 'mongoose' );
+ var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/projects';
 mongoose.connect(dbURI);
@@ -31,7 +32,7 @@ app.get( '/', function( req, res ) {
 } );
 
 var auth = require('./server/auth/auth.js');
-auth.createAuthRoutes(app, io);
+auth.createAuthRoutes(app, io, mongoose);
 
 
 var port = process.env.PORT  || process.argv[2] || 80;
