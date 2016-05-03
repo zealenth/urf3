@@ -2,6 +2,7 @@
   "name": "urf3",
   "version": "0.0.0",
   "scripts": {
+    "postinstall": "bower install && gulp",
     "start": "node server.js"
   },
   "license": "ISC",
