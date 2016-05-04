@@ -23,6 +23,13 @@ class RegisterCtrl {
         ok: 'Close',
       });
       return this.$mdDialog.show(warning);
+    } else if (!this.user) {
+      const warning = this.$mdDialog.alert({
+        title: 'User',
+        textContent: 'Username is required',
+        ok: 'Close',
+      });
+      return this.$mdDialog.show(warning);
     }
 
     this.$http.post('/register', {

@@ -121,6 +121,7 @@ function createAuthRoutes(app, io, mongoose) {
       token: token
     });
   });
+
   app.use(expressJwt({secret: jwtSecret}).unless({ path: [ '/login' ]}));
   app.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
@@ -135,6 +136,7 @@ function createAuthRoutes(app, io, mongoose) {
     })).on('authenticated', function(socket) {
       //this socket is authenticated, we are good to handle more events from it.
       console.log('hello! ' + socket.decoded_token.user);
+      socket.emit( 'authenticated' );
     });
 }
 

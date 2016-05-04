@@ -24,6 +24,6 @@ describe('current-user service', function() {
       expect(currentUser.jwt).toBe('testJwt');
       localStorageService.remove('user');
       localStorageService.remove('jwt');
-    })
+    });
   });
 });

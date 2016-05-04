@@ -7,11 +7,10 @@ var app = express();
 var http = require( 'http' ).Server( app );
 var io = require( 'socket.io' )( http );
 
-
  var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/projects';
+var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/urf3';
 mongoose.connect(dbURI);
 
 var db = mongoose.connection;
@@ -20,7 +19,6 @@ var db = mongoose.connection;
  db.once('open', function callback () {
     console.log( 'Connected to MongoDB' );
  });
-
 
 app.use( compress );
 app.use( express.static( __dirname + '/dist' ) );
@@ -31,9 +29,10 @@ app.get( '/', function( req, res ) {
     res.render( 'index.html' );
 } );
 
-var auth = require('./server/auth/auth.js');
-auth.createAuthRoutes(app, io, mongoose);
+//authentication must be done first before adding any other
+require('./server/auth/auth.js').createAuthRoutes(app, io, mongoose);
 
+require('./server/routes/challenge-routes').initChallengeRoutes(app, io, mongoose);
 
 var port = process.env.PORT  || process.argv[2] || 80;
 //we're passing */model* paths through to port 1337 and serving them with node.
