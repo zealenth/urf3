@@ -136,7 +136,7 @@ function createAuthRoutes(app, io, mongoose) {
     })).on('authenticated', function(socket) {
       //this socket is authenticated, we are good to handle more events from it.
       console.log('hello! ' + socket.decoded_token.user);
-      socket.emit( 'authenticated' );
+      //frameowrk issues emit: socket.emit( 'authenticated' );
     });
 }
 

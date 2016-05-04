@@ -3,7 +3,7 @@ angular.module('urf3')
     $stateProvider
       .state('home.challenge', {
         url: '/:id',
-        templateUrl: 'views/home/challenge/challenge.tpl.html',
+        templateUrl: 'routes/home/challenge/challenge.tpl.html',
         controller: ($scope, $stateParams) => {
           $scope.challengeId = $stateParams.id;
         },

@@ -1,6 +1,6 @@
 class DashboardCtrl {
-  constructor() {
-
+  constructor(challengeManager) {
+    this.challenges = challengeManager.getChallenges();
   }
 }
 

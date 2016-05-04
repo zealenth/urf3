@@ -1,6 +1,6 @@
 class ChallengeCtrl {
   constructor(challengeManager, currentUser) {
-    this.challenges = challengeManager.getChallenges();
+    this.challenge = challengeManager.getChallenge(this.id);
     this.currentUser = currentUser;
   }
 }

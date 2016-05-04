@@ -7,41 +7,65 @@ function initChallengeRoutes(app, io, mongoose) {
     name: String,
     start: { type: Date },
     end: { type: Date },
+    createdAt: { type: Date, default: Date.now },
     owner: String,
     players: []
   } );
 
   var Challenge = mongoose.model( 'Challenge', challengeSchema );
-
-  var chal = new Challenge( {
-      name: 'Challenge 1',
-      start: Date.now(),
-      players: [
-        {
-          name: 'test',
-          startingPoints: 100,
-          currentPoints: 500
-        },
-        {
-          name: 'test2',
-          startingPoints: 200,
-          currentPoints: 400
-        }
-      ]
-  } );
-
-  chal.save()
-    .then( function(model) {
-      console.log(model);
+  Challenge.remove({})
+    .then( function() {
+      var chal = new Challenge( {
+        name: 'Challenge 1',
+        start: Date.now(),
+        end: Date.now(),
+        owner: 'test',
+        players: [
+          {
+            name: 'test',
+            startingPoints: 100,
+            currentPoints: 500
+          },
+          {
+            name: 'test2',
+            startingPoints: 200,
+            currentPoints: 400
+          }
+        ]
+      } );
+      chal.save();
+       /*.then( function() {
+          var chal = new Challenge( {
+            name: 'Challenge 2',
+            start: Date.now(),
+            end: Date.now(),
+            owner: 'test',
+            players: [
+              {
+                name: 'test',
+                startingPoints: 100,
+                currentPoints: 500
+              },
+              {
+                name: 'test2',
+                startingPoints: 200,
+                currentPoints: 400
+              }
+            ]
+          });
+          chal.save();
+      } );*/
     });
-
   io.on('authenticated', function (socket) {
     socket.on('challenges:init', function() {
-      Challenge.find({user: socket.decoded_token.user})
+      Challenge.find({players: {$elemMatch: {name:socket.decoded_token.user}}}).exec()
         .then((docs) => {
           if (docs && docs.length) {
-            socket.emit('challenges:Init', docs);
+            socket.emit('challenges:init', docs);
           }
+        })
+        .catch( function(err) {
+          console.log(err);
         });
     });
   });

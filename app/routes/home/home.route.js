@@ -3,7 +3,7 @@ angular.module('urf3')
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'views/home/home.tpl.html',
+        templateUrl: 'routes/home/home.tpl.html',
         controller: () => { },
       });
   });
