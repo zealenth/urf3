@@ -55,6 +55,48 @@ function initChallengeRoutes(app, io, mongoose) {
           });
           chal.save();
       } );*/
+    })
+    .catch( function() {
+      var chal = new Challenge( {
+        name: 'Challenge 1',
+        start: Date.now(),
+        end: Date.now(),
+        owner: 'test',
+        players: [
+          {
+            name: 'test',
+            startingPoints: 100,
+            currentPoints: 500
+          },
+          {
+            name: 'test2',
+            startingPoints: 200,
+            currentPoints: 400
+          }
+        ]
+      } );
+      chal.save();
+      /*.then( function() {
+       var chal = new Challenge( {
+       name: 'Challenge 2',
+       start: Date.now(),
+       end: Date.now(),
+       owner: 'test',
+       players: [
+       {
+       name: 'test',
+       startingPoints: 100,
+       currentPoints: 500
+       },
+       {
+       name: 'test2',
+       startingPoints: 200,
+       currentPoints: 400
+       }
+       ]
+       });
+       chal.save();
+       } );*/
     });
   io.on('authenticated', function (socket) {
     socket.on('challenges:init', function() {

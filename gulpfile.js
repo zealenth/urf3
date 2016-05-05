@@ -210,7 +210,6 @@ gulp.task( 'js', function() {
         .pipe( remember( 'js-src' ) );
 
     var tplStream = gulp.src( globs.app.template )
-        .pipe( cached( 'js-tmpl' ) )
         .pipe( gulpif( includeMaps, sourcemaps.init() ) )
         // TODO: Add optional html minification here?
         .pipe( templateCache( { module: 'urf3.templates', standalone: true } ) )
