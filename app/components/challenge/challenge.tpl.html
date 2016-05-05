@@ -1,4 +1,4 @@
-<md-content flex layout="column">
+<md-content class="md-padding" flex layout="column">
   <h1>{{ctrl.challenge.name}}</h1>
   <challenge-player ng-repeat="player in ctrl.challenge.players" player="player"></challenge-player>
   <challenge-admin ng-if="challenge.owener = ctrl.currentUser.user"></challenge-admin>

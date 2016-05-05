@@ -43,7 +43,7 @@ var globs = {
         js: [
             'app/app.js', 'app/**/module.js', 'app/**/*.ts', 'app/**/*.js', '!app/**/*.spec.js', '!app/**/*.spec-helper.js'
         ],
-        sass: 'app/**/*.scss',
+        sass: [ 'app/app.scss', 'app/**/*.scss' ],
         template: [ 'app/**/*.tpl.html' ]
     },
     assets: {
