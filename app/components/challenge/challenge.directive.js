@@ -4,6 +4,9 @@ angular.module('urf3')
       controller: 'challengeCtrl',
       restrict: 'E',
       controllerAs: 'ctrl',
+      scope: {
+        id: '=',
+      },
       bindToController: true,
       templateUrl: 'components/challenge/challenge.tpl.html',
     };

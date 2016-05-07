@@ -2,6 +2,7 @@ class ChallengeManager {
   constructor(socket, $q, $mdDialog) {
     this.$mdDialog = $mdDialog;
     this.socket = socket;
+    this.$q = $q;
 
     this.deferred = $q.defer();
     this.challengeMap = {};
@@ -10,13 +11,13 @@ class ChallengeManager {
     socket.on('challenges:init', (challenges) => {
       this.challenges.length = 0;
       _.each(challenges, (challenge) => {
-        if (this.challengeMap[challenge.id]) {
-          _.extend(this.challengeMap[challenge.id], challenge);
+        if (this.challengeMap[challenge._id]) {
+          _.extend(this.challengeMap[challenge._id], challenge);
         } else {
-          this.challengeMap[challenge.id] = challenge;
+          this.challengeMap[challenge._id] = challenge;
         }
 
-        this.challenges.push(this.challengeMap[challenge.id]);
+        this.challenges.push(this.challengeMap[challenge._id]);
       });
       this.deferred.resolve(this.challenges);
     });
@@ -29,13 +30,13 @@ class ChallengeManager {
       $mdDialog.show(warning);
     });
     socket.on('challenges:add', (challenge) => {
-      if (this.challengeMap[challenge.id]) {
-        _.extend(this.challengeMap[challenge.id], challenge);
+      if (this.challengeMap[challenge._id]) {
+        _.extend(this.challengeMap[challenge._id], challenge);
       } else {
-        this.challengeMap[challenge.id] = challenge;
+        this.challengeMap[challenge._id] = challenge;
       }
 
-      this.challenges.push(this.challengeMap[challenge.id]);
+      this.challenges.push(this.challengeMap[challenge._id]);
     });
 
     socket.on('authenticated', () => {
@@ -52,11 +53,24 @@ class ChallengeManager {
     //good candidate for rxjs stream.
     if (!this.challengeMap[id]) {
       this.challengeMap[id] = {
-        id: id,
+        _id: id,
       };
     }
 
     return this.challengeMap[id];
+  }
+
+  createChallenge(newChallenge) {
+    var deferred = this.$q.defer();
+    this.socket.emit('challenges:new', newChallenge, (err, challenge) => {
+      if (challenge) {
+        deferred.reject(err);
+      }
+
+      deferred.resolve(challenge);
+    });
+    return deferred.promise;
+
   }
 }
 

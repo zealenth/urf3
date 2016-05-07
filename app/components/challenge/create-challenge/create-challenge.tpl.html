@@ -1,0 +1,10 @@
+<md-content class="md-padding" layout="column">
+  <p class="error" ng-if="ctrl.error"></p>
+  <input style="width:200px" md-input ng-model="ctrl.name" type="text" placeholder="Name">
+
+  </input>
+  <md-checkbox ng-model="public">Public</md-checkbox>
+
+  <md-button ng-disabled="this.loading" class="md-button-raised" ng-click="ctrl.create()">Create</md-button>
+
+</md-content>

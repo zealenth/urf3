@@ -1,16 +1,22 @@
 <md-content>
     <md-list>
-        <md-subheader class="md-no-sticky">Challenges</md-subheader>
-        <md-list-item ng-repeat="challenge in ctrl.challenges track by challenge._id">
-            <a ui-sref="home.challenge({id: challenge._id})">{{challenge.name}}</a>
+        <md-subheader class="md-primary">
+            Challenges
+        </md-subheader>
+        <md-list-item ng-click="ctrl.navigateToChallenge(challenge);"
+                      ng-repeat="challenge in ctrl.challenges track by challenge._id">
+            <p>{{challenge.name}}</p>
+        </md-list-item>
+        <md-list-item ng-click="ctrl.createChallenge()">
+            <md-icon>add_box</md-icon><p>Add</p>
         </md-list-item>
         <md-divider></md-divider>
-        <md-subheader class="md-no-sticky">Friends</md-subheader>
+        <md-subheader class="md-primary">Friends</md-subheader>
         <md-list-item>
             Friend1
         </md-list-item>
         <md-divider></md-divider>
-        <md-subheader class="md-no-sticky">Requests</md-subheader>
+        <md-subheader class="md-primary">Requests</md-subheader>
         <md-list-item>
             Request 1
         </md-list-item>

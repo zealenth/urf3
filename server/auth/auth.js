@@ -51,14 +51,8 @@ function validateRecaptcha(req) {
 
 function createAuthRoutes(app, io, mongoose) {
   //TODO should we globally use json body parser? app.use( bodyParser.json() );
-  var userSchema = new mongoose.Schema( {
-    user: String,
-    pass: String,
-    email: String
-  } );
 
-  var User = mongoose.model( 'User', userSchema );
-
+  var User = require('../db/user').getUserModel(mongoose);
   function authenticate(req, res, next) {
     var obj = req.body;
 
