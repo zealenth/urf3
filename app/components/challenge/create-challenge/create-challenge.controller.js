@@ -14,8 +14,8 @@ class CreateChallengeCtrl {
       })
       .catch((err) => {
         this.error = err;
-      }
-    );
+        this.loading = false;
+      });
   }
 }
 

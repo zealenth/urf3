@@ -24,51 +24,7 @@ function initChallengeRoutes(app, io, mongoose) {
         }
       });
   }
-  
-  Challenge.remove({})
-    .then( function() {
-      var chal = new Challenge( {
-        name: 'Challenge 1',
-        start: Date.now(),
-        end: Date.now(),
-        owner: 'test',
-        players: [
-          {
-            name: 'test',
-            startingPoints: 100,
-            currentPoints: 500
-          },
-          {
-            name: 'test2',
-            startingPoints: 200,
-            currentPoints: 400
-          }
-        ]
-      } );
-      chal.save();
-    })
-    .catch( function() {
-      var chal = new Challenge( {
-        name: 'Challenge 1',
-        start: Date.now(),
-        end: Date.now(),
-        owner: 'test',
-        players: [
-          {
-            name: 'test',
-            startingPoints: 100,
-            currentPoints: 500
-          },
-          {
-            name: 'test2',
-            startingPoints: 200,
-            currentPoints: 400
-          }
-        ]
-      } );
-      chal.save();
 
-    });
   io.on('authenticated', function (socket) {
     socket.on('challenges:init', function() {
       Challenge.find({players: {$elemMatch: {name:socket.decoded_token.user}}})
@@ -87,12 +43,10 @@ function initChallengeRoutes(app, io, mongoose) {
       challenge.players = [];
       _getPlayerInfo(challenge.owner)
         .then( function(player) {
-          console.log('inside then');
           challenge.players.push(player);
           var chal = new Challenge(challenge);
           chal.save()
             .then( function(chal) {
-              console.log('inside Save');
               socket.emit('challenges:add', chal);
               cb('', chal);
             })
@@ -101,8 +55,31 @@ function initChallengeRoutes(app, io, mongoose) {
             });
         });
     });
+
+    socket.on('challenges:join', function(id, cb) {
+      Challenge.find({_id: id}).exec()
+        .then(function(docs) {
+          if(!docs || !docs.length) {
+            cb('Challenge does not exist', null);
+            return null;
+          }
+          var challenge = docs[0];
+          _getPlayerInfo(socket.decoded_token.user)
+            .then( function(player) {
+              challenge.players.push(player);
+              challenge.save()
+                .then( function(chal) {
+                  socket.emit('challenges:add', chal);
+                  cb('', chal);
+                })
+                .catch( function(err) {
+                  cb(err, chal);
+                });
+            });
+
+        });
+    });
   });
 }
-
 
 module.exports.initChallengeRoutes = initChallengeRoutes;

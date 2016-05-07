@@ -27,7 +27,7 @@ class ChallengeManager {
         textContent: error,
         ok: 'Close',
       });
-      $mdDialog.show(warning);
+      this.$mdDialog.show(warning);
     });
     socket.on('challenges:add', (challenge) => {
       if (this.challengeMap[challenge._id]) {
@@ -36,7 +36,10 @@ class ChallengeManager {
         this.challengeMap[challenge._id] = challenge;
       }
 
-      this.challenges.push(this.challengeMap[challenge._id]);
+      if (_._.findIndex(this.challenges, { _id: challenge._id }) === -1) {
+        this.challenges.push(this.challengeMap[challenge._id]);
+      }
+
     });
 
     socket.on('authenticated', () => {
@@ -71,6 +74,18 @@ class ChallengeManager {
     });
     return deferred.promise;
 
+  }
+
+  joinChallenge(id) {
+    var deferred = this.$q.defer();
+    this.socket.emit('challenges:join', id, (err, challenge) => {
+      if (challenge) {
+        deferred.reject(err);
+      }
+
+      deferred.resolve(challenge);
+    });
+    return deferred.promise;
   }
 }
 
