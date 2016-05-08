@@ -1,15 +1,16 @@
 class JoinChallengeCtrl {
-  constructor(challengeManager, $mdDialog) {
+  constructor(challengeManager, $mdDialog, $state) {
     this.challengeManager = challengeManager;
     this.challenge = this.challengeManager.getChallenge(this.id);
     this.$mdDialog = $mdDialog;
+    this.$state = $state;
   }
 
   joinChallenge() {
     this.loading = this.challengeManager.joinChallenge(this.id)
       .then((challenge) => {
         if (challenge) {
-          this.$state.go('home.challenge', { id: this.id });
+          this.$state.go('home.challenge', { id: challenge._id });
         } else {
           const warning = this.$mdDialog.alert({
             title: 'Error',

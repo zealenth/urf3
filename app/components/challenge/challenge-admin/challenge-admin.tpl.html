@@ -1,0 +1,25 @@
+<md-card style="height: 400px;" layout="column" class="md-padding" flex ng-if="ctrl.challenge.owner === ctrl.currentUser.user">
+  <h4>
+    Settings
+  </h4>
+  <md-card style="overflow:hidden" class="md-padding" flex>
+    <md-tooltip>
+      You can invite people to join by sending them a link, or inviting their user.
+    </md-tooltip>
+    <h5>Invite</h5>
+    <span>link: /home/join/{{::ctrl.challenge._id}}</span>
+    <md-input-contianer>
+      <input flex type="text" ng-enter="ctrl.invitePlayer()" ng-model="ctrl.invitee" placeholder="user"></input>
+    </md-input-contianer>
+    <md-content style="height:200px;overflow:auto;">
+        <md-list>
+          <md-subheader class="md-primary">
+            Invitees:
+          </md-subheader>
+          <md-list-item ng-repeat="invitee in ctrl.challenge.admin.invites track by $index">
+            {{::invitee}}
+          </md-list-item>
+        </md-list>
+    </md-content>
+  </md-card>
+</md-card>

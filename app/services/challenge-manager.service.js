@@ -22,11 +22,13 @@ class ChallengeManager {
       this.deferred.resolve(this.challenges);
     });
     socket.on('challenges:error', (error) => {
-      const warning = this.$mdDialog.alert({
-        title: 'Error',
-        textContent: error,
-        ok: 'Close',
-      });
+      const warning = this.$mdDialog.alert(
+        {
+          title: 'Error',
+          textContent: error,
+          ok: 'Close',
+        }
+      );
       this.$mdDialog.show(warning);
     });
     socket.on('challenges:add', (challenge) => {
@@ -36,7 +38,7 @@ class ChallengeManager {
         this.challengeMap[challenge._id] = challenge;
       }
 
-      if (_._.findIndex(this.challenges, { _id: challenge._id }) === -1) {
+      if (_.findIndex(this.challenges, { _id: challenge._id }) === -1) {
         this.challenges.push(this.challengeMap[challenge._id]);
       }
 
@@ -67,23 +69,23 @@ class ChallengeManager {
     var deferred = this.$q.defer();
     this.socket.emit('challenges:new', newChallenge, (err, challenge) => {
       if (challenge) {
-        deferred.reject(err);
+        deferred.resolve(challenge);
       }
 
-      deferred.resolve(challenge);
+      deferred.reject(err);
+
     });
     return deferred.promise;
-
   }
 
   joinChallenge(id) {
     var deferred = this.$q.defer();
     this.socket.emit('challenges:join', id, (err, challenge) => {
       if (challenge) {
-        deferred.reject(err);
+        deferred.resolve(challenge);
       }
 
-      deferred.resolve(challenge);
+      deferred.reject(err);
     });
     return deferred.promise;
   }

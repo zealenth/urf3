@@ -1,8 +1,10 @@
 class LoginCtrl {
-  constructor($http, $state, currentUser) {
+  constructor($http, $state, currentUser, $mdDialog) {
     this.$http = $http;
     this.$state = $state;
     this.currentUser = currentUser;
+    this.$state = $state;
+    this.$mdDialog = $mdDialog;
   }
 
   login() {
@@ -12,7 +14,13 @@ class LoginCtrl {
         password: this.password,
       })
         .then((resp)=> {
-          if (resp.err) {
+          if (resp.body.err) {
+            const warning = this.$mdDialog.alert({
+              title: 'Error',
+              textContent: resp.err,
+              ok: 'Close',
+            });
+            this.$mdDialog.show(warning);
             this.err = resp.err;
           } else {
             this.currentUser.login(this.user, resp.data.token);
