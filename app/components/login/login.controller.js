@@ -14,7 +14,7 @@ class LoginCtrl {
         password: this.password,
       })
         .then((resp)=> {
-          if (resp.body.err) {
+          if (resp.data && resp.data.err) {
             const warning = this.$mdDialog.alert({
               title: 'Error',
               textContent: resp.err,
