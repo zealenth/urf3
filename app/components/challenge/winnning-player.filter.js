@@ -6,8 +6,8 @@ angular.module('urf3')
       }
 
       return input.sort((a, b) => {
-        return (a.currentPoints - a.startingPoints) -
-          (b.currentPoints - b.startingPoints);
+        return (b.currentPoints - b.startingPoints) -
+          (a.currentPoints - a.startingPoints);
       });
     };
   });
