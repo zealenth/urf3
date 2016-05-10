@@ -10,7 +10,7 @@ function initChallengeRoutes(app, io, mongoose, riotApi) {
   function _getPlayerInfo(name) {
     return User.find({user:name})
       .then(function(docs) {
-        if (docs && docs[0]) {
+        if (docs && docs[0] && docs[0].lolId) {
           //TODO: look up riot api stuff
           var user = docs[0];
           return riotApi.getChampionMasteries(user.lolId)
@@ -77,10 +77,6 @@ function initChallengeRoutes(app, io, mongoose, riotApi) {
           var newPlayers = [];
           var promises = [];
           _.each(challenge.players, (player) => {
-            if(!player.lolId) {
-              newPlayers.push(player);
-              return;
-            }
             var prom =_getPlayerInfo(player.user)
               .then((newPlayer) => {
                 newPlayer.startingPoints = player.startingPoints;
