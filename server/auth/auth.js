@@ -49,10 +49,11 @@ function validateRecaptcha(req) {
       });
 }
 
-function createAuthRoutes(app, io, mongoose) {
+function createAuthRoutes(app, io, mongoose, riotApi) {
   //TODO should we globally use json body parser? app.use( bodyParser.json() );
 
   var User = require('../db/user').getUserModel(mongoose);
+
   function authenticate(req, res, next) {
     var obj = req.body;
 
@@ -78,28 +79,33 @@ function createAuthRoutes(app, io, mongoose) {
           return res.send( { error: 'That user already exists' } );
         }
         validateRecaptcha(req)
-            .then(function(valid) {
-              if(!valid) {
-                return res.send( { error: 'Recaptcha was invalid' } );
-              }
+          .then(function(valid) {
+            if(!valid) {
+              return res.send( { error: 'Recaptcha was invalid' } );
+            }
+            riotApi.getPlayer(req.body.lolAccount)
+            .then( (player) => {
               var newUser = new User({
                 user: req.body.user,
                 pass: req.body.password, //TODO: salt and hash
-                email: req.body.email
+                email: req.body.email,
+                lolName: player.name,
+                lolId: player.id
               });
               newUser.save( function(err, user) {
                 if( err ) {
                   return res.send( {error: err });
                 }
                 var token = jwt.sign({
-                  user: req.user,
-                  password: req.password
+                  user: req.body.user
                 }, jwtSecret );
                 res.send({
                   token: token
                 });
-              } );
+              });
             });
+
+          });
       })
       .catch(function(err) {
         res.send({error: err});
@@ -108,8 +114,7 @@ function createAuthRoutes(app, io, mongoose) {
 
   app.post('/login', jsonParser, authenticate, function(req, res) {
     var token = jwt.sign({
-      user: req.user,
-      password: req.password
+      user: req.user
     }, jwtSecret );
     res.send({
       token: token

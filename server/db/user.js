@@ -8,7 +8,9 @@ function getUserModel(mongoose) {
   var userSchema = new mongoose.Schema( {
     user: String,
     pass: String,
-    email: String
+    email: String,
+    lolName: String,
+    lolId: String
   } );
 
   User = mongoose.model( 'User', userSchema );

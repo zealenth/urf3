@@ -23,6 +23,10 @@ class ChallengeAdminCtrl {
     this.invitee = '';
   }
 
+  getJoinLink() {
+    return window.location.hostname + '/home/join/' + this.challenge._id;
+  }
+
 }
 
 angular.module('urf3')

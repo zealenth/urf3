@@ -1,3 +1,5 @@
 <md-content flex layout="column">
-  {{ctrl.player.name}} | {{ctrl.player.currentPoints - ctrl.player.startingPoints}} points
+  <div class="player-container" ng-style="ctrl.getWidthStyle()">
+  {{ctrl.player.user}} | {{ctrl.player.currentPoints - ctrl.player.startingPoints}} points
+  </div>
 </md-content>

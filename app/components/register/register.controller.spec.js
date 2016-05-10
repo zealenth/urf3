@@ -17,6 +17,7 @@ describe('register controller', function() {
       registerCtrl.user = 'test';
       registerCtrl.password = 'pass';
       registerCtrl.confirmPassword = 'pass';
+      registerCtrl.lolAccount = 'test';
     });
   });
 

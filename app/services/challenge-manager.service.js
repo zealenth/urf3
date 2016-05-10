@@ -41,7 +41,6 @@ class ChallengeManager {
       if (_.findIndex(this.challenges, { _id: challenge._id }) === -1) {
         this.challenges.push(this.challengeMap[challenge._id]);
       }
-
     });
 
     socket.on('authenticated', () => {
@@ -81,6 +80,18 @@ class ChallengeManager {
   joinChallenge(id) {
     var deferred = this.$q.defer();
     this.socket.emit('challenges:join', id, (err, challenge) => {
+      if (challenge) {
+        deferred.resolve(challenge);
+      }
+
+      deferred.reject(err);
+    });
+    return deferred.promise;
+  }
+
+  refreshChallenge(id) {
+    var deferred = this.$q.defer();
+    this.socket.emit('challenges:refresh', id, (err, challenge) => {
       if (challenge) {
         deferred.resolve(challenge);
       }

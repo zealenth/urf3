@@ -6,6 +6,7 @@ angular.module('urf3')
       controllerAs: 'ctrl',
       scope: {
         player: '=',
+        maxPoints: '=',
       },
       bindToController: true,
       templateUrl: 'components/challenge/challenge-player/' +

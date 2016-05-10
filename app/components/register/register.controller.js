@@ -30,14 +30,24 @@ class RegisterCtrl {
         ok: 'Close',
       });
       return this.$mdDialog.show(warning);
+    } else if (!this.lolAccount) {
+      const warning = this.$mdDialog.alert({
+        title: 'LoL Account',
+        textContent: 'A League of Legends account is required',
+        ok: 'Close',
+      });
+
+      return this.$mdDialog.show(warning);
     }
 
     this.$http.post('/register', {
       user: this.user,
       password: this.password,
       email: this.email,
+      lolAccount: this.lolAccount,
       recaptcha: this.vcRecaptchaService.getResponse(),
-    }).then((data) => {
+    }).then((resp) => {
+      const data = resp.data;
       if (data.error) {
         const warning = this.$mdDialog.alert({
           title: 'Error',
@@ -47,7 +57,7 @@ class RegisterCtrl {
         return this.$mdDialog.show(warning);
       }
 
-      this.currentUser.login(this.user, data.jwt);
+      this.currentUser.login(this.user, data.token);
       const state = this.currentUser.toState || 'home';
       this.$state.go(state, this.currentUser.toParams);
     });

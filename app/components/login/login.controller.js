@@ -28,7 +28,16 @@ class LoginCtrl {
             this.$state.go(state, this.currentUser.toParams);
           }
         }
-      );
+      )
+      .catch((resp) => {
+        const warning = this.$mdDialog.alert({
+          title: 'Error',
+          textContent: resp.data,
+          ok: 'Close',
+        });
+        this.$mdDialog.show(warning);
+        this.err = resp.data;
+      });
     }
   }
 

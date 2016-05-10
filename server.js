@@ -6,7 +6,8 @@ var app = express();
 
 var http = require( 'http' ).Server( app );
 var io = require( 'socket.io' )( http );
-
+var RiotApi = require('./server/utils/riot-api-adapter').RiotApiAdapter;
+var riotApi = new RiotApi({ apiKey: process.env.riot_key});
  var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
@@ -30,9 +31,9 @@ app.get( '/', function( req, res ) {
 } );
 
 //authentication must be done first before adding any other
-require('./server/auth/auth.js').createAuthRoutes(app, io, mongoose);
+require('./server/auth/auth.js').createAuthRoutes(app, io, mongoose, riotApi);
 
-require('./server/routes/challenge-routes').initChallengeRoutes(app, io, mongoose);
+require('./server/routes/challenge-routes').initChallengeRoutes(app, io, mongoose, riotApi);
 
 var port = process.env.PORT  || process.argv[2] || 80;
 //we're passing */model* paths through to port 1337 and serving them with node.
