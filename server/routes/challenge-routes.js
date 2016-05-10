@@ -77,6 +77,10 @@ function initChallengeRoutes(app, io, mongoose, riotApi) {
           var newPlayers = [];
           var promises = [];
           _.each(challenge.players, (player) => {
+            if(!player.lolId) {
+              newPlayers.push(player);
+              return;
+            }
             var prom =_getPlayerInfo(player.user)
               .then((newPlayer) => {
                 newPlayer.startingPoints = player.startingPoints;
