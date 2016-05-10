@@ -24,7 +24,7 @@ class ChallengeAdminCtrl {
   }
 
   getJoinLink() {
-    return window.location.hostname + '/home/join/' + this.challenge._id;
+    return window.location.hostname + '/#/home/join/' + this.challenge._id;
   }
 
 }
