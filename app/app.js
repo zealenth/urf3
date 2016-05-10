@@ -8,7 +8,8 @@ angular.module('urf3',
     'ngMessages',
     'vcRecaptcha',
   ],
-  function config($httpProvider) {
+  function config($httpProvider, $routeProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
+    $routeProvider.otherwise( '/home' );
   }
 );
