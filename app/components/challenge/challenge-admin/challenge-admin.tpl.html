@@ -7,7 +7,7 @@
       You can invite people to join by sending them a link, or inviting their user.
     </md-tooltip>
     <h5>Invite</h5>
-    <a href="{{ctrl.getJoinLink()}}">{{ctrl.getJoinLink()}}</span>
+    <a href="{{'http://' + ctrl.getJoinLink()}}">{{ctrl.getJoinLink()}}</a>
     <md-input-contianer>
       <input flex type="text" ng-enter="ctrl.invitePlayer()" ng-model="ctrl.invitee" placeholder="user"></input>
     </md-input-contianer>
