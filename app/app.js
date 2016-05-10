@@ -10,6 +10,6 @@ angular.module('urf3',
   ],
   function config($httpProvider, $routeProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
-    $routeProvider.otherwise( '/home' );
+    $routeProvider.otherwise('/home');
   }
 );
