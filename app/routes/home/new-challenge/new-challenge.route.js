@@ -1,5 +1,5 @@
 angular.module('urf3')
-  .config(($routeProvider, $stateProvider) => {
+  .config(($stateProvider) => {
     $stateProvider
       .state('home.newChallenge', {
         url: '/newChallenge',

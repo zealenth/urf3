@@ -1,0 +1,9 @@
+<md-content layout="column" flex-grow>
+  <md-input-container class="md-block">
+    <input required name="lolAccount" style="max-width:300px" ng-model="ctrl.lolAccount"
+           type="text" placeholder="League of Legends Account" />
+    <div ng-messages="register.lolAccount.$error" role="alert">
+      <div class="message-error"  md-warn ng-message="required">League Account is required.</div>
+    </div>
+  </md-input-container>
+</md-content>

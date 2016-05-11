@@ -1,9 +1,9 @@
 angular.module('urf3')
   .config(($stateProvider) => {
     $stateProvider
-      .state('register', {
-        url: '/register',
-        template: '<register></register>',
+      .state('settings', {
+        url: '/user/settings',
+        template: '<user-settings></user-settings>',
         controller: () => { },
       });
   });
