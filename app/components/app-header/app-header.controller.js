@@ -1,10 +1,12 @@
 class AppHeader {
-  constructor(currentUser) {
+  constructor(currentUser, $state) {
     this.currentUser = currentUser;
+    this.$state = $state;
   }
 
   logout() {
     this.currentUser.logout();
+    this.$state.go('login');
   }
 }
 

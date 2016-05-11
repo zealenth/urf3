@@ -1,9 +1,8 @@
 class CurrentUser {
-  constructor(localStorageService, $state) {
+  constructor(localStorageService) {
     this.localStorageService = localStorageService;
     this.user = this.localStorageService.get('user');
     this.jwt = this.localStorageService.get('jwt');
-    this.$state = $state;
   }
 
   login(user, jwt) {
@@ -18,7 +17,6 @@ class CurrentUser {
     this.localStorageService.remove('jwt');
     this.user = null;
     this.jwt = null;
-    this.$state.go('login');
   }
 }
 
